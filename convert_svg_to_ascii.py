@@ -4,8 +4,9 @@ import cairosvg
 
 
 scale = ["@", "#", "S", "%", "?", "*", "+", ";", ":", ",", ".", " "][::-1]
-WIDTH = 8192
-# WIDTH = 256
+WIDTH = 512
+WIDTH_ASCII_ART = 36
+COMPRESS = 2.3
 
 for icon in sorted(os.listdir("icons")):
     ascii_art = []
@@ -30,7 +31,7 @@ for icon in sorted(os.listdir("icons")):
     # Get image size
     w,h = image.size
 
-    step_h, step_w = round(h / w * WIDTH / 32 * 4), WIDTH // 32
+    step_h, step_w = round(h / w * WIDTH / WIDTH_ASCII_ART * COMPRESS), WIDTH // WIDTH_ASCII_ART
     # Iterate over pixels
     for y in range(0, WIDTH * h // w, step_h):
 
@@ -57,5 +58,3 @@ for icon in sorted(os.listdir("icons")):
 
         ascii_art.append(s)
     print(f'        case "{icon.split(".")[0].split("_")[0]}":\n            return \"\"\"{chr(10).join(ascii_art)}\"\"\"')
-
-
